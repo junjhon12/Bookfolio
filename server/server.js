@@ -43,7 +43,7 @@ passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user))
 
 app.get('/', (req, res) => {
-  res.status(200).send('Shelfie API')
+  res.status(200).send('Bookfolio API')
 })
 
 app.use('/auth', authRoutes)
