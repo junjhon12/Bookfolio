@@ -4,8 +4,8 @@ import { useRoutes } from "react-router-dom";
 import "./App.css";
 import Header from "./sections/Header";
 import Footer from "./sections/Footer";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Homepage from "./pages/Homepage";
 import Search from "./pages/Search";
 import Saved_Books from "./pages/Saved_Books";
 import Chatbot from "./pages/Chatbot";
@@ -29,7 +29,7 @@ function App() {
   let element = useRoutes([
     {
       path: "/",
-      element: user && user.id ? <Home /> : <Login api_url={API_URL} />,
+      element: user && user.id ? <Dashboard /> : <Homepage api_url={API_URL} />,
     },
     {
       path: "/search",
@@ -37,7 +37,7 @@ function App() {
         user && user.id ? (
           <Search api_url={API_URL} />
         ) : (
-          <Login api_url={API_URL} />
+          <Homepage api_url={API_URL} />
         ),
     },
     {
@@ -46,7 +46,7 @@ function App() {
         user && user.id ? (
           <Saved_Books api_url={API_URL} />
         ) : (
-          <Login api_url={API_URL} />
+          <Homepage api_url={API_URL} />
         ),
     },
     {
@@ -55,7 +55,7 @@ function App() {
         user && user.id ? (
           <Chatbot api_url={API_URL} />
         ) : (
-          <Login api_url={API_URL} />
+          <Homepage api_url={API_URL} />
         ),
     },
   ]);
