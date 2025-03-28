@@ -131,14 +131,21 @@ book_id (INTEGER, FOREIGN KEY REFERENCES BOOK(book_id))
 1. Clone the repository:
    ```sh
    git clone https://github.com/SophieNguyen113/Bookfolio.git
-   cd bookfolio
+   cd Bookfolio
    ```
 2. Install dependencies:
    ```sh
    cd server
    npm install
    ```
-3. Start the backend server:
+3. Create `.env` file:
+   ```sh
+   PG_CONNECTION_STRING=
+   GITHUB_CLIENT_ID=
+   GITHUB_CLIENT_SECRET=
+   SESSION_SECRET=
+   ```
+4. Start the backend server:
    ```sh
    npm run start
    ```
@@ -152,7 +159,12 @@ book_id (INTEGER, FOREIGN KEY REFERENCES BOOK(book_id))
    ```sh
    npm install
    ```
-3. Start the frontend server:
+3. Create `.env` file:
+   ```sh
+   VITE_API_KEY=
+   VITE_PUBLIC_DEEPSEEK_API_KEY=
+   ```
+4. Start the frontend server:
    ```sh
    npm run dev
    ```
