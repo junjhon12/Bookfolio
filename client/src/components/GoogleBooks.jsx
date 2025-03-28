@@ -10,7 +10,7 @@ export default function GoogleBooks({api_url}) {
     useSelector((state) => state.books);
 
   const apiKey = import.meta.env.VITE_API_KEY;
-  const URL = `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=12&key=${apiKey}`;
+  const URL = `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=40&key=${apiKey}`;
 
   const dispatch = useDispatch();
 
