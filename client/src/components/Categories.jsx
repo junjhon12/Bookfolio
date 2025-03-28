@@ -11,14 +11,11 @@ const categories = [
   "Science",
   "Arts",
   "Business",
-  "Cooking",
   "Biography",
-  "Self-Help",
-  "Health",
-  "Technology",
-  "Collections",
+  "Literary",
+  "Books",
   "Others",
-  "All",
+  "All"
 ];
 
 export default function Categories() {

@@ -5,12 +5,9 @@ const categories = [
   "Science",
   "Arts",
   "Business",
-  "Cooking",
   "Biography",
-  "Self-Help",
-  "Health",
-  "Technology",
-  "Collections",
+  "Literary",
+  "Books"
 ];
 
 const initialState = {
