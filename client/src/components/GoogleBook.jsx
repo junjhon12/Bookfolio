@@ -5,7 +5,6 @@ export default function GoogleBook({ book, api_url }) {
   const [languageName, setLanguageName] = useState("");
   const languageCode = book?.volumeInfo?.language;
 
-  // Fetch the language name using the code
   useEffect(() => {
     const fetchLanguageName = async () => {
       try {
@@ -14,11 +13,11 @@ export default function GoogleBook({ book, api_url }) {
           throw new Error(`Error fetching language: ${response.statusText}`);
         }
         const data = await response.json();
-        setLanguageName(data.name); // Set the fetched language name
+        setLanguageName(data.name);
         console.log(`${api_url}/languages/${languageCode}`);
       } catch (error) {
         console.error("Failed to fetch language name:", error);
-        setLanguageName("Unknown"); // Fallback in case of error
+        setLanguageName("Unknown");
       }
     };
 

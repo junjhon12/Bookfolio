@@ -5,7 +5,7 @@ export default function Nav({ user, api_url }) {
   const AUTH_URL_LOGIN = `${api_url}/auth/github`;
 
   const logout = async (event) => {
-    event.preventDefault(); // Prevent the default navigation
+    event.preventDefault();
     try {
       const response = await fetch(AUTH_URL, { credentials: 'include' });
       if (!response.ok) {
@@ -13,7 +13,7 @@ export default function Nav({ user, api_url }) {
       }
       const json = await response.json();
       console.log(json);
-      window.location.href = '/'; // Redirect to home after logout
+      window.location.href = '/';
     } catch (error) {
       console.error('Logout error:', error);
     }

@@ -10,7 +10,7 @@ export default function UserAvatar() {
   return (
     <div>
       <img
-        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
         alt="User Avatar"
         className="w-10 h-10 object-cover rounded-full cursor-pointer"
         onClick={toggleModal}
@@ -18,15 +18,15 @@ export default function UserAvatar() {
       {isModalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
-          onClick={toggleModal} // Close the modal when clicking outside
+          onClick={toggleModal}
         >
           <div
             className="bg-white p-6 rounded-lg shadow-lg relative"
-            onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-bold mb-4">User Information</h2>
             <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
               alt="User Avatar"
               className="w-20 h-20 object-cover rounded-full mx-auto mb-4"
             />

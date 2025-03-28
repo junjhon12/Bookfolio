@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Recommend from "../components/Recommend";
 import SavedBooks from "../components/SavedBooks";
 
 export default function Saved_Books({ api_url }) {
@@ -39,8 +38,6 @@ export default function Saved_Books({ api_url }) {
     <div>
       <h1>Saved Books</h1>
       <SavedBooks savedBooks={savedBooks} api_url={api_url} />
-      <h1>Recommended Books</h1>
-      <Recommend books={books} api_url={api_url} />
     </div>
   );
 }

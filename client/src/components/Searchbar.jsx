@@ -41,7 +41,6 @@ export default function Searchbar({ children }) {
           style={{
             width: "100%",
             padding: "10px",
-            // border: "1px solid gray",
             borderRadius: "4px",
           }}
         />

@@ -50,7 +50,7 @@ export default function Categories() {
                 backgroundColor: selectedCategory === category ? "grey.700" : "grey.300",
               },
               "&.MuiButton-root": {
-                outline: "none", // Remove blue focus ring
+                outline: "none",
               },
             }}
           >

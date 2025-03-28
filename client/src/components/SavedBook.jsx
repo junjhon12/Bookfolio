@@ -46,16 +46,14 @@ export default function SavedBook({ savedBook, api_url }) {
     fetchPagesRead();
   }, [id, api_url]);
 
-  // Debounce `pagesRead` updates
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedPagesRead(pagesRead);
-    }, 1000); // Wait 1 second before updating
+    }, 1000);
 
     return () => clearTimeout(handler);
   }, [pagesRead]);
 
-  // Update the backend when `debouncedPagesRead` changes
   useEffect(() => {
     const updatePagesRead = async () => {
       try {
@@ -91,7 +89,7 @@ export default function SavedBook({ savedBook, api_url }) {
       });
 
       if (res.ok) {
-        navigate(0); // Refresh the page after deletion
+        navigate(0);
       } else {
         throw new Error("Failed to delete book");
       }
