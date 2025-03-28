@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "../features/books/booksSlice";
+import { setSearchQuery } from "../features/booksSlice";
 import { useState } from "react";
 
 export default function Searchbar({ children }) {

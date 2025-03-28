@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setFilteredGoogleBooks,
   setSelectedCategory,
-} from "../features/books/booksSlice";
+} from "../features/booksSlice";
 import { Button, Box } from "@mui/material";
 import { useEffect } from "react";
 

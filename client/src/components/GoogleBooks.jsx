@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setGoogleBooks } from "../features/books/booksSlice";
+import { setGoogleBooks } from "../features/booksSlice";
 import GoogleBook from "./GoogleBook";
 
 export default function GoogleBooks({api_url}) {
