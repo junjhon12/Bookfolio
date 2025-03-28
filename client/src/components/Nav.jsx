@@ -22,36 +22,38 @@ export default function Nav({ user, api_url }) {
   return (
     <nav>
       <ul className="flex items-center gap-4 list-none">
-        <li>
-          <NavLink to="/" className="text-white">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/search" className="text-white">
-            Search
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/saved_books" className="text-white">
-            Saved Books
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/chatbot" className="text-white">
-            Chatbot
-          </NavLink>
-        </li>
         {user && user.id ? (
-          <li>
-            <a
-              href="/"
-              onClick={logout}
-              className="text-white cursor-pointer"
-            >
-              Logout
-            </a>
-          </li>
+          <>
+            <li>
+              <NavLink to="/" className="text-white">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/search" className="text-white">
+                Search
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/saved_books" className="text-white">
+                Saved Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/chatbot" className="text-white">
+                Chatbot
+              </NavLink>
+            </li>
+            <li>
+              <a
+                href="/"
+                onClick={logout}
+                className="text-white cursor-pointer"
+              >
+                Logout
+              </a>
+            </li>
+          </>
         ) : (
           <li>
             <a
