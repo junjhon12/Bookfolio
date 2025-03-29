@@ -25,6 +25,31 @@ const createUsersTable = async () => {
   }
 };
 
+const createUserLibraryTable = async () => {
+  try {
+    const createUserLibraryTableQuery = `
+      DROP TABLE IF EXISTS user_library;
+      
+      CREATE TABLE IF NOT EXISTS user_library (
+        id SERIAL PRIMARY KEY,
+        user_id INT NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        author VARCHAR(255) NOT NULL,
+        genre VARCHAR(100),
+        description TEXT,
+        rating DECIMAL(3,2),
+        reading_status VARCHAR(50),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      );
+    `;
+    await pool.query(createUserLibraryTableQuery);
+    console.log("✅ Table user_library created successfully");
+  } catch (err) {
+    console.log("❌ Failed to create user_library table");
+    console.error(err);
+  }
+};
+
 const createBooksTable = async () => {
   try {
     const createBooksTableQuery = `
@@ -163,6 +188,7 @@ const dropTable = async () => {
   try {
     const dropTableQuery = `
       DROP TABLE IF EXISTS users_books;
+      DROP TABLE IF EXISTS user_library;
       DROP TABLE IF EXISTS users_books_rec;
       DROP TABLE IF EXISTS categories_books;
       DROP TABLE IF EXISTS books;
@@ -182,6 +208,7 @@ const dropTable = async () => {
 const setup = async () => {
   await dropTable();
   await createUsersTable();
+  await createUserLibraryTable();
   await createBooksTable();
   await createUsersBooksTable();
   await createUsersBooksRecTable();
