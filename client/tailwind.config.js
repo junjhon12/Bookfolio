@@ -3,6 +3,15 @@ export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      animation: {
+        'rotate-bounce': 'rotate-bounce 1s infinite ease-in-out',
+      },
+      keyframes: {
+        'rotate-bounce': {
+          '0%, 100%': { transform: 'rotate(10deg)' },
+          '50%': { transform: 'rotate(-10deg)' },
+        },
+      },
       typography: {
         DEFAULT: {
           css: {
