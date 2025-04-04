@@ -4,7 +4,7 @@ import { useRoutes } from "react-router-dom";
 import "./App.css";
 import Header from "./sections/Header";
 import Footer from "./sections/Footer";
-import Dashboard from "./pages/Dashboard";
+import Home_Books from "./pages/Home_Books";
 import Homepage from "./pages/Homepage";
 import Search from "./pages/Search";
 import Saved_Books from "./pages/Saved_Books";
@@ -29,7 +29,7 @@ function App() {
   let element = useRoutes([
     {
       path: "/",
-      element: user && user.id ? <Dashboard /> : <Homepage api_url={API_URL} />,
+      element: user && user.id ? <Home_Books /> : <Homepage api_url={API_URL} />,
     },
     {
       path: "/search",
