@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import OpenAI from 'openai';
+import ReactMarkdown from 'react-markdown';
+
 
 export default function Chatbot({ api_url }) {
   const [messages, setMessages] = useState([]);
@@ -223,10 +225,21 @@ export default function Chatbot({ api_url }) {
                 : 'bg-white border max-w-[80%]'
             }`}
           >
-            <p className="text-sm font-semibold mb-1">
+            <p className="text-sm font-semibold mb-1 text-black">
               {message.role === 'user' ? 'You' : 'Book Assistant'}
             </p>
-            <p className="whitespace-pre-wrap">{message.content}</p>
+            <ReactMarkdown
+              components={{
+                p: ({node, ...props}) => <p className="text-black text-sm mb-2" {...props} />,
+                h3: ({node, ...props}) => <h3 className="text-lg font-bold mt-4 mb-2 text-black" {...props} />,
+                em: ({node, ...props}) => <em className="italic text-black" {...props} />,
+                strong: ({node, ...props}) => <strong className="font-semibold text-black" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc ml-6 text-black" {...props} />,
+                li: ({node, ...props}) => <li className="mb-1 text-black" {...props} />
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
           </div>
         ))}
         
@@ -247,7 +260,7 @@ export default function Chatbot({ api_url }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask for book recommendations, summaries, or discussions..."
-          className="flex-1 p-2 border rounded-lg"
+          className="flex-1 p-2 border rounded-lg text-white"
           disabled={isLoading}
         />
         <button 
