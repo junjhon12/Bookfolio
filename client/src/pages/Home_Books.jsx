@@ -222,10 +222,14 @@ export default function Home_Books({ api_url }) {
                   Delete
                 </button>
                 <button
-                  onClick={() => handleFavorite(book.id)} // Call the handleFavorite function
-                  className="flex-1 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
+                onClick={() => handleFavorite(book.id)}
+                className={`flex-1 px-3 py-1 rounded text-sm transition-colors duration-200 ${
+                  book.favorite
+                    ? "bg-purple-600 hover:bg-purple-700 text-white"
+                    : "bg-yellow-500 hover:bg-yellow-600 text-white"
+                }`}
                 >
-                  {book.favorite ? "Unfavorite" : "Save as Favorite"} {/* Toggle button text */}
+                  {book.favorite ? "❤️ Saved" : "🤍 Save"}
                 </button>
               </div>
             </div>

@@ -97,7 +97,6 @@ const toggleFavoriteBook = async (req, res) => {
 
     const { book_id } = req.params;
 
-    // First, fetch current favorite status
     const selectQuery = `SELECT favorite FROM user_library WHERE id = $1 AND user_id = $2`;
     const result = await pool.query(selectQuery, [book_id, req.user.id]);
 
