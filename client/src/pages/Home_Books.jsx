@@ -91,14 +91,12 @@ export default function Home_Books({ api_url }) {
 
   const handleFavorite = async (bookId) => {
     try {
-      // Update the favorite status on the backend
       const res = await fetch(`${api_url}/api/user_library/${bookId}/favorite`, {
         method: "POST",
         credentials: "include",
       });
       const data = await res.json();
       if (res.ok) {
-        // Update the state after favoriting the book
         fetchBooks();
       } else {
         console.error(data.error || "Error marking as favorite");
@@ -159,27 +157,33 @@ export default function Home_Books({ api_url }) {
           />
         </div>
         <div>
-          <input
-            type="number"
-            step="0.01"
+          <select
             name="rating"
-            placeholder="Rating"
             value={form.rating}
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-          />
+          >
+            <option value="">Select Rating</option>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
-          <input
-            type="text"
+          <select
             name="reading_status"
-            placeholder="Reading Status"
             value={form.reading_status}
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-          />
+          >
+            <option value="">Select Status</option>
+            <option value="Reading">Reading</option>
+            <option value="Completed">Completed</option>
+          </select>
         </div>
         <div>
           <button
@@ -205,7 +209,7 @@ export default function Home_Books({ api_url }) {
                 <p><span className="font-semibold text-gray-500">Rating:</span> {book.rating}</p>
                 <p><span className="font-semibold text-gray-500">Description:</span> {book.description || "No description."}</p>
                 <p><span className="font-semibold text-gray-500">Status:</span> {book.reading_status}</p>
-                <p><span className="font-semibold text-gray-500">Favorite:</span> {book.favorite ? "Yes" : "No"}</p> {/* Display favorite status */}
+                <p><span className="font-semibold text-gray-500">Favorite:</span> {book.favorite ? "Yes" : "No"}</p>
               </div>
 
               <div className="flex justify-between mt-3 space-x-2">
