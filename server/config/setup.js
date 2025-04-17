@@ -39,6 +39,7 @@ const createUserLibraryTable = async () => {
         description TEXT,
         rating DECIMAL(3,2),
         reading_status VARCHAR(50),
+        favorite BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
       );
     `;

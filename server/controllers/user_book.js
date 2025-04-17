@@ -89,4 +89,39 @@ const deleteUserLibraryBook = async (req, res) => {
   }
 };
 
-module.exports = { getUserLibrary, addUserLibraryBook, updateUserLibraryBook, deleteUserLibraryBook };
+const toggleFavoriteBook = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { book_id } = req.params;
+
+    // First, fetch current favorite status
+    const selectQuery = `SELECT favorite FROM user_library WHERE id = $1 AND user_id = $2`;
+    const result = await pool.query(selectQuery, [book_id, req.user.id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+
+    const currentFavorite = result.rows[0].favorite;
+    const newFavorite = !currentFavorite;
+
+    const updateQuery = `
+      UPDATE user_library
+      SET favorite = $1
+      WHERE id = $2 AND user_id = $3
+      RETURNING *
+    `;
+
+    const updated = await pool.query(updateQuery, [newFavorite, book_id, req.user.id]);
+
+    return res.status(200).json({ book: updated.rows[0] });
+  } catch (err) {
+    console.error("Error toggling favorite:", err.message);
+    return res.status(500).json({ error: "Error toggling favorite status" });
+  }
+};
+
+module.exports = { getUserLibrary, addUserLibraryBook, updateUserLibraryBook, deleteUserLibraryBook, toggleFavoriteBook };

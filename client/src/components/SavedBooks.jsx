@@ -1,7 +1,6 @@
 import SavedBook from "./SavedBook";
 
 export default function SavedBooks({savedBooks, api_url}) {
-
   return (
     <ul className="flex flex-wrap gap-4">
       {savedBooks?.map((savedBook) => (

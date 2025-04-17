@@ -8,7 +8,7 @@ export default function Home_Books({ api_url }) {
     genre: "",
     description: "",
     rating: "",
-    reading_status: ""
+    reading_status: "",
   });
   const [editingBookId, setEditingBookId] = useState(null);
 
@@ -56,7 +56,7 @@ export default function Home_Books({ api_url }) {
           genre: "",
           description: "",
           rating: "",
-          reading_status: ""
+          reading_status: "",
         });
         setEditingBookId(null);
       } else {
@@ -89,12 +89,31 @@ export default function Home_Books({ api_url }) {
     }
   };
 
+  const handleFavorite = async (bookId) => {
+    try {
+      // Update the favorite status on the backend
+      const res = await fetch(`${api_url}/api/user_library/${bookId}/favorite`, {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        // Update the state after favoriting the book
+        fetchBooks();
+      } else {
+        console.error(data.error || "Error marking as favorite");
+      }
+    } catch (err) {
+      console.error("Error marking book as favorite", err);
+    }
+  };
+
   return (
     <div className="p-4 max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">
         {editingBookId ? "Edit Book" : "Add a Book"}
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="mb-6 space-y-4 bg-gray-100 p-4 rounded shadow">
         <div>
           <input
@@ -176,10 +195,9 @@ export default function Home_Books({ api_url }) {
       {books.length === 0 ? (
         <p>No books found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
           {books.map((book) => (
             <div key={book.id} className="bg-white rounded-xl shadow-md p-4 space-y-2">
-        
               <div className="text-left space-y-1">
                 <h3 className="text-lg font-semibold">{book.title}</h3>
                 <p><span className="font-semibold text-gray-500">Author:</span> {book.author}</p>
@@ -187,6 +205,7 @@ export default function Home_Books({ api_url }) {
                 <p><span className="font-semibold text-gray-500">Rating:</span> {book.rating}</p>
                 <p><span className="font-semibold text-gray-500">Description:</span> {book.description || "No description."}</p>
                 <p><span className="font-semibold text-gray-500">Status:</span> {book.reading_status}</p>
+                <p><span className="font-semibold text-gray-500">Favorite:</span> {book.favorite ? "Yes" : "No"}</p> {/* Display favorite status */}
               </div>
 
               <div className="flex justify-between mt-3 space-x-2">
@@ -201,6 +220,12 @@ export default function Home_Books({ api_url }) {
                   className="flex-1 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
                 >
                   Delete
+                </button>
+                <button
+                  onClick={() => handleFavorite(book.id)} // Call the handleFavorite function
+                  className="flex-1 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
+                >
+                  {book.favorite ? "Unfavorite" : "Save as Favorite"} {/* Toggle button text */}
                 </button>
               </div>
             </div>
