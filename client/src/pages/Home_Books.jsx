@@ -1,115 +1,172 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home_Books({ api_url }) {
-  const [book, setBook] = useState({
+  const [books, setBooks] = useState([]);
+  const [form, setForm] = useState({
     title: "",
     author: "",
     genre: "",
     description: "",
     rating: "",
-    reading_status: "",
+    reading_status: ""
   });
+  const [editingBookId, setEditingBookId] = useState(null);
 
-  const [message, setMessage] = useState("");
+  const fetchBooks = async () => {
+    try {
+      const res = await fetch(`${api_url}/api/user_library`, {
+        credentials: "include",
+      });
+      const data = await res.json();
+      setBooks(data.books || []);
+    } catch (err) {
+      console.error("Error fetching books", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   const handleChange = (e) => {
-    setBook({ ...book, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch(`${api_url}/api/user-library`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(book),
+      const method = editingBookId ? "PUT" : "POST";
+      const endpoint = editingBookId
+        ? `${api_url}/api/user_library/${editingBookId}`
+        : `${api_url}/api/user_library`;
+
+      const res = await fetch(endpoint, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form)
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setMessage("Book added successfully!");
-        setBook({
+      const data = await res.json();
+      if (res.ok) {
+        fetchBooks();
+        setForm({
           title: "",
           author: "",
           genre: "",
           description: "",
           rating: "",
-          reading_status: "",
+          reading_status: ""
         });
+        setEditingBookId(null);
       } else {
-        setMessage(data.error || "Failed to add book.");
+        console.error(data.error || "Error submitting form");
       }
-    } catch (error) {
-      setMessage("Error adding book.");
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("Error submitting book", err);
+    }
+  };
+
+  const handleEdit = (book) => {
+    setForm(book);
+    setEditingBookId(book.id);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${api_url}/api/user_library/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        fetchBooks();
+      } else {
+        console.error(data.error || "Error deleting");
+      }
+    } catch (err) {
+      console.error("Error deleting book", err);
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Add a New Book</h2>
-      {message && <p className="mb-2 text-red-500">{message}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">{editingBookId ? "Edit Book" : "Add a Book"}</h2>
+      <form onSubmit={handleSubmit} className="mb-6">
         <input
           type="text"
           name="title"
           placeholder="Title"
-          value={book.title}
+          value={form.title}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         />
         <input
           type="text"
           name="author"
           placeholder="Author"
-          value={book.author}
+          value={form.author}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         />
         <input
           type="text"
           name="genre"
           placeholder="Genre"
-          value={book.genre}
+          value={form.genre}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          required
         />
-        <textarea
+        <input
+          type="text"
           name="description"
           placeholder="Description"
-          value={book.description}
+          value={form.description}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
         />
         <input
           type="number"
-          step="0.1"
+          step="0.01"
           name="rating"
-          placeholder="Rating (e.g., 4.5)"
-          value={book.rating}
+          placeholder="Rating"
+          value={form.rating}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          required
         />
         <input
           type="text"
           name="reading_status"
-          placeholder="Reading Status (e.g., Reading, Completed)"
-          value={book.reading_status}
+          placeholder="Reading Status"
+          value={form.reading_status}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          required
         />
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-        >
-          Add Book
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-2">
+          {editingBookId ? "Update" : "Add"}
         </button>
       </form>
+
+      <h2 className="text-xl font-bold mb-2">Your Library</h2>
+      {books.length === 0 ? (
+        <p>No books found.</p>
+      ) : (
+        <ul className="space-y-2">
+          {books.map((book) => (
+            <li key={book.id} className="border p-2 rounded shadow">
+              <strong>{book.title}</strong> by {book.author}
+              <p>Status: {book.reading_status || "N/A"}</p>
+              <div className="space-x-2 mt-2">
+                <button onClick={() => handleEdit(book)} className="text-blue-500">
+                  Edit
+                </button>
+                <button onClick={() => handleDelete(book.id)} className="text-red-500">
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

@@ -3,7 +3,6 @@ import axios from 'axios';
 import OpenAI from 'openai';
 import ReactMarkdown from 'react-markdown';
 
-
 export default function Chatbot({ api_url }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');

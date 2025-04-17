@@ -10,6 +10,7 @@ const GitHub = require('./config/auth.js')
 const authRoutes = require('./routes/auth.js')
 const bookRoutes = require('./routes/book.js')
 const langRoutes = require('./routes/languages.js')
+const userBookRoutes = require('./routes/user_book.js')
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes)
 app.use('/api/books', bookRoutes)
 app.use('/languages', langRoutes)
+app.use('/api/user_library', userBookRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/*', (_, res) =>

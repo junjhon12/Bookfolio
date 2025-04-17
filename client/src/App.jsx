@@ -12,7 +12,7 @@ import Chatbot from "./pages/Chatbot";
 
 function App() {
   const [user, setUser] = useState(null);
-  const API_URL = import.meta.env.VITE_SERVER_URL|| "http://localhost:3001";
+  const API_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,7 +29,7 @@ function App() {
   let element = useRoutes([
     {
       path: "/",
-      element: user && user.id ? <Home_Books /> : <Homepage api_url={API_URL} />,
+      element: user && user.id ? <Home_Books api_url={API_URL} /> : <Homepage api_url={API_URL} />,
     },
     {
       path: "/search",

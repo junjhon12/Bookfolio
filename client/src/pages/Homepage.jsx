@@ -1,4 +1,4 @@
-export default function Homepage({user, api_url}) {
+export default function Homepage({api_url}) {
   const AUTH_URL_LOGIN = `${api_url}/auth/github`;
   return (
     <div className="min-h-screen">
