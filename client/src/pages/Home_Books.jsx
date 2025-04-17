@@ -90,82 +90,122 @@ export default function Home_Books({ api_url }) {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">{editingBookId ? "Edit Book" : "Add a Book"}</h2>
-      <form onSubmit={handleSubmit} className="mb-6">
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="author"
-          placeholder="Author"
-          value={form.author}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="genre"
-          placeholder="Genre"
-          value={form.genre}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          step="0.01"
-          name="rating"
-          placeholder="Rating"
-          value={form.rating}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="reading_status"
-          placeholder="Reading Status"
-          value={form.reading_status}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-2">
-          {editingBookId ? "Update" : "Add"}
-        </button>
+    <div className="p-4 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">
+        {editingBookId ? "Edit Book" : "Add a Book"}
+      </h2>
+      
+      <form onSubmit={handleSubmit} className="mb-6 space-y-4 bg-gray-100 p-4 rounded shadow">
+        <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={form.title}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="author"
+            placeholder="Author"
+            value={form.author}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="genre"
+            placeholder="Genre"
+            value={form.genre}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={form.description}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            step="0.01"
+            name="rating"
+            placeholder="Rating"
+            value={form.rating}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="reading_status"
+            placeholder="Reading Status"
+            value={form.reading_status}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            {editingBookId ? "Update" : "Add"}
+          </button>
+        </div>
       </form>
 
-      <h2 className="text-xl font-bold mb-2">Your Library</h2>
+      <h2 className="text-2xl font-bold mb-4">Your Library</h2>
       {books.length === 0 ? (
         <p>No books found.</p>
       ) : (
-        <ul className="space-y-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {books.map((book) => (
-            <li key={book.id} className="border p-2 rounded shadow">
-              <strong>{book.title}</strong> by {book.author}
-              <p>Status: {book.reading_status || "N/A"}</p>
-              <div className="space-x-2 mt-2">
-                <button onClick={() => handleEdit(book)} className="text-blue-500">
+            <div key={book.id} className="bg-white rounded-xl shadow-md p-4 space-y-2">
+        
+              <div className="text-left space-y-1">
+                <h3 className="text-lg font-semibold">{book.title}</h3>
+                <p><span className="font-semibold text-gray-500">Author:</span> {book.author}</p>
+                <p><span className="font-semibold text-gray-500">Genre:</span> {book.genre}</p>
+                <p><span className="font-semibold text-gray-500">Rating:</span> {book.rating}</p>
+                <p><span className="font-semibold text-gray-500">Description:</span> {book.description || "No description."}</p>
+                <p><span className="font-semibold text-gray-500">Status:</span> {book.reading_status}</p>
+              </div>
+
+              <div className="flex justify-between mt-3 space-x-2">
+                <button
+                  onClick={() => handleEdit(book)}
+                  className="flex-1 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                >
                   Edit
                 </button>
-                <button onClick={() => handleDelete(book.id)} className="text-red-500">
+                <button
+                  onClick={() => handleDelete(book.id)}
+                  className="flex-1 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                >
                   Delete
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
