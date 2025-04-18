@@ -3,36 +3,48 @@ import { useState } from "react";
 export default function UserAvatar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const user = {
+    avatarUrl:
+      "https://avatars.githubusercontent.com/u/111645165?v=4",
+    username: "junjhon12",
+    name: "Quoc Bao Dinh Le",
   };
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <div>
       <img
-        src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+        src={user.avatarUrl}
         alt="User Avatar"
-        className="w-10 h-10 object-cover rounded-full cursor-pointer"
+        className="w-10 h-10 object-cover rounded-full cursor-pointer border border-gray-300"
         onClick={toggleModal}
       />
+
       {isModalOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
           onClick={toggleModal}
         >
           <div
-            className="bg-white p-6 rounded-lg shadow-lg relative"
+            className="bg-white p-8 rounded-2xl shadow-2xl w-80 text-black relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-lg font-bold mb-4">User Information</h2>
+            <h2 className="text-2xl font-semibold text-center mb-6">User Information</h2>
+
             <img
-              src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+              src={user.avatarUrl}
               alt="User Avatar"
-              className="w-20 h-20 object-cover rounded-full mx-auto mb-4"
+              className="w-24 h-24 object-cover rounded-full mx-auto border-4 border-gray-200 mb-4"
             />
-            <p className="text-center">Welcome, User!</p>
+
+            <div className="text-center">
+              <p className="text-lg font-medium">{user.name}</p>
+              <p className="text-gray-500">@{user.username}</p>
+            </div>
+
             <button
-              className="mt-4 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors w-full"
+              className="mt-6 w-full px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
               onClick={toggleModal}
             >
               Close
